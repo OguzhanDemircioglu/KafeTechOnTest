@@ -6,3 +6,48 @@
   text-decoration: none;
   outline: none;
 }
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding: 24px 24px;
+}
+
+.card {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #04ba77;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px;
+}
+
+@media (max-width: 767px) {
+  .card {
+    flex: 1 0 calc(50% - 22px);
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex: 1 0 calc(50% - 22px);
+  }
+}
+
+@media (max-width: 575px) {
+  .card {
+    flex: 1 0 calc(100% - 22px);
+  }
+}
+
+.side-nav {
+  width: 240px;
+  position: absolute;
+  background-color: darkgray;
+  height: 95vh;
+  transition: all 1s;
+  padding-top: 20px;
+  margin-bottom: 240px;
+}
+
