@@ -41,13 +41,5 @@
   }
 }
 
-.side-nav {
-  width: 240px;
-  position: absolute;
-  background-color: darkgray;
-  height: 95vh;
-  transition: all 1s;
-  padding-top: 20px;
-  margin-bottom: 240px;
-}
+
 

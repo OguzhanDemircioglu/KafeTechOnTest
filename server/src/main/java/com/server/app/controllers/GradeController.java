@@ -17,7 +17,7 @@ public class GradeController {
     private final GradeService service;
 
     @PostMapping(value = "/kaydet")
-    public ResponseEntity<Grade> kaydet(@Validated Map<String,String> map) throws Exception {
+    public ResponseEntity<Grade> kaydet(Map<String,String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.save(map));
         }catch (CommandAcceptanceException e){

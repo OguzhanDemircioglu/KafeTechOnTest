@@ -1,0 +1,28 @@
+.sparePartList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 20px 20px;
+}
+
+.SparePartListCard {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #04ba77;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 5px;
+}
+
+@media (max-width: 767px) {
+    .SparePartListCard {
+        flex: 1 0 calc(50% - 22px);
+    }
+}
+
+@media (max-width: 575px) {
+    .SparePartListCard {
+        flex: 1 0 calc(100% - 22px);
+    }
+}

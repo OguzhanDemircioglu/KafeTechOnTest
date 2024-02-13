@@ -7,7 +7,7 @@ import "./Header.css";
 export default function Header() {
     return (
         <Navbar bg="secondary" variant="dark" expand="md">
-            <Navbar.Brand href="/124" style={{color: "gold", marginLeft: "20px"}}>
+            <Navbar.Brand href="/" style={{color: "gold", marginLeft: "20px"}}>
                 <FontAwesomeIcon icon={faPencilAlt}/>
                 School Tracer
             </Navbar.Brand>

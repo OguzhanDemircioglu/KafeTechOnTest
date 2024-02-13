@@ -15,6 +15,11 @@ public class TeacherSrvImpl implements TeacherService {
     private final TeacherRepository repository;
 
     @Override
+    public Teacher save(Map<String, String> map) {
+        return null;
+    }
+
+    @Override
     public List<Teacher> findAll() {
         return repository.findAll();
     }
@@ -27,9 +32,5 @@ public class TeacherSrvImpl implements TeacherService {
         repository.deleteTeacherByTckn(tckn);
     }
 
-    @Override
-    public Teacher save(Map<String, String> map) {
-        return null;
-    }
 
 }

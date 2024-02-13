@@ -15,6 +15,11 @@ public class StudentSrvImpl implements StudentService {
     private final StudentRepository repository;
 
     @Override
+    public Student save(Map<String, String> map) {
+        return null;
+    }
+
+    @Override
     public List<Student> findAll() {
         return repository.findAll();
     }
@@ -25,10 +30,5 @@ public class StudentSrvImpl implements StudentService {
             throw new RuntimeException("Nesne boş");
         }
         repository.deleteStudentByTckn(tckn);
-    }
-
-    @Override
-    public Student save(Map<String, String> map) {
-        return null;
     }
 }
