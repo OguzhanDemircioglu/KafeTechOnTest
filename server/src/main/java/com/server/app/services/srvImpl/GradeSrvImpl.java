@@ -37,14 +37,14 @@ public class GradeSrvImpl implements GradeService {
             throw new CommandAcceptanceException("Var olan Bir Nesne Tekrar Tanımlanamaz");
         }
 
-        Grade grade = Grade.builder()
-                .gradeScore(Double.parseDouble(map.get("gradeNumber")))
-                .teacher(teacherRepository.getTeacherByTckn(map.get("teacherTckn")))
-                .student(studentRepository.getStudentByTckn(map.get("studentTckn")))
-                .lesson(lessonRepository.getLessonByName(map.get("lessonName")))
-                .build();
-
-        return repository.save(grade);
+        return repository.save(
+                Grade.builder()
+                        .gradeScore(Double.parseDouble(map.get("gradeNumber")))
+                        .teacher(teacherRepository.getTeacherByTckn(map.get("teacherTckn")))
+                        .student(studentRepository.getStudentByTckn(map.get("studentTckn")))
+                        .lesson(lessonRepository.getLessonByName(map.get("lessonName")))
+                        .build()
+        );
     }
 
     @Override

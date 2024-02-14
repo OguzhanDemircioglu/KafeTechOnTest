@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface StudentService {
     List<Student> findAll();
-    void deleteStudentByTckn(String tckn);
+    void deleteStudentById(Long id);
     Student save (Map<String,String> map);
 }

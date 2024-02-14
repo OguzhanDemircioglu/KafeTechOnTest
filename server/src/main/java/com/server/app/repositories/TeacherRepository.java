@@ -9,7 +9,7 @@ public interface TeacherRepository extends JpaRepository<Teacher,Long> {
 
     Teacher getTeacherByTckn(String tckn);
 
-    void deleteTeacherByTckn(String tckn);
+    void deleteTeacherById(Long id);
 
     boolean existsTeacherByTckn(String tckn);
 }

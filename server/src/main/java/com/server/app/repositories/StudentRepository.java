@@ -11,7 +11,8 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
 
     Student getStudentByTckn(String tckn);
 
-    void deleteStudentByTckn(String tckn);
-
     boolean existsStudentByTckn(String tckn);
+
+
+    void deleteStudentById(Long id);
 }

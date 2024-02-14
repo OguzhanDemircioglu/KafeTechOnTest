@@ -11,6 +11,6 @@ public interface LessonRepository extends JpaRepository<Lesson,Long> {
 
     boolean existsLessonByName(String name);
 
-    void deleteLessonByName(String name);
+    void deleteLessonById(Long id);
 
 }

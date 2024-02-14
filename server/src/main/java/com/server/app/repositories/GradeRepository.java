@@ -29,4 +29,10 @@ public interface GradeRepository extends JpaRepository<Grade,Long> {
 
     void deleteGradeById(Long id);
 
+    void deleteGradeByStudentId(Long id);
+
+    void deleteGradeByTeacherId(Long id);
+
+    void deleteGradeByLessonId(Long id);
+
 }

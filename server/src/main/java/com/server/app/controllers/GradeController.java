@@ -5,7 +5,6 @@ import com.server.app.services.GradeService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,8 +15,8 @@ import java.util.Map;
 public class GradeController {
     private final GradeService service;
 
-    @PostMapping(value = "/kaydet")
-    public ResponseEntity<Grade> kaydet(Map<String,String> map) throws Exception {
+    @PostMapping(value = "/save")
+    public ResponseEntity<Grade> save(@RequestBody Map<String,String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.save(map));
         }catch (CommandAcceptanceException e){
@@ -43,7 +42,7 @@ public class GradeController {
     }
 
     @PostMapping(value = "/getGrades")
-    public ResponseEntity<?> getGrades(Map<String,String> map) throws Exception {
+    public ResponseEntity<?> getGrades(@RequestBody Map<String,String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.getGrades(map));
         }catch (CommandAcceptanceException e){

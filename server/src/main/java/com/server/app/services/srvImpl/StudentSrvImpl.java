@@ -1,9 +1,11 @@
 package com.server.app.services.srvImpl;
 
 import com.server.app.models.Student;
+import com.server.app.repositories.GradeRepository;
 import com.server.app.repositories.StudentRepository;
 import com.server.app.services.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +15,27 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class StudentSrvImpl implements StudentService {
     private final StudentRepository repository;
+    private final GradeRepository gradeRepository;
 
     @Override
     public Student save(Map<String, String> map) {
-        return null;
+
+        if(
+                        map.get("name") == null ||
+                        map.get("surname") == null ||
+                        map.get("tckn") == null ||
+                        repository.existsStudentByTckn(map.get("tckn"))
+        ){
+            throw new CommandAcceptanceException("Geçersiz işlem yada nesne kayıtlı");
+        }
+
+        return repository.save(
+                Student.builder()
+                        .name(map.get("name"))
+                        .surname(map.get("surname"))
+                        .tckn(map.get("tckn"))
+                        .build()
+        );
     }
 
     @Override
@@ -25,10 +44,8 @@ public class StudentSrvImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudentByTckn(String tckn) {
-        if(tckn == null){
-            throw new RuntimeException("Nesne boş");
-        }
-        repository.deleteStudentByTckn(tckn);
+    public void deleteStudentById(Long id) {
+        gradeRepository.deleteGradeByStudentId(id);
+        repository.deleteStudentById(id);
     }
 }

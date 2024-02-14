@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface LessonService {
     List<Lesson> findAll();
-    void deleteLessonByName(String name);
+    void deleteLessonById(Long id);
     Lesson save (Map<String,String> map);
 
 }
