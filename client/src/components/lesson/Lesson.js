@@ -10,12 +10,12 @@ const Lesson = () => {
     const [indexCount, setIndexCount] = useState([]);
     const [itemCount, setItemCount] = useState([]);
     const [name, setName] = useState(null);
-    const [countPerWeek, setCountPerWeek] = useState(-1);
+    const [countPerWeek, setCountPerWeek] = useState(0);
     const [itemId, setItemId] = useState(-1);
     const [switchModal, setSwitchModal] = useState(false);
 
-    const findAll = () => {
-        fetch(BASE_URL + 'lesson/findAll')
+    const getLessonsByDetail = () => {
+        fetch(BASE_URL + 'lesson/getLessonsByDetail')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('İşlem şuan gerçekleştirilemiyor');
@@ -33,6 +33,17 @@ const Lesson = () => {
     };
 
     const insertLesson = () => {
+
+        if(name===null){
+            alert("İsim Boş olamaz");
+            return;
+        }
+
+        if (countPerWeek===0) {
+            alert("Haftalık Ders Sayısı Boş olamaz");
+            return;
+        }
+
         fetch(BASE_URL + 'lesson/save', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
@@ -73,7 +84,7 @@ const Lesson = () => {
     };
 
     useEffect(() => {
-        findAll();
+        getLessonsByDetail();
     }, []);
 
     return (<>
@@ -120,22 +131,22 @@ const Lesson = () => {
                                     <table id="table2">
                                         <tbody>
                                         <tr>
-                                            <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
+                                            <img style={{width: "25%"}} src="/img/l1.png" alt=""/>
                                         </tr>
                                         <tr>
-                                            <span> Name Surname: {item.name} {item.surname}</span>
+                                            <td>SUBJECT: {item.name} {item.surname}</td>
                                         </tr>
                                         <tr>
-                                            <span>TCKN: {item.tckn}</span>
+                                            <td>TEACHER COUNT: {item.teacherCount}</td>
                                         </tr>
                                         <tr>
-                                            <span>STUDENT COUNT: {item.name}</span>
+                                            <td>STUDENT COUNT: {item.studentCount}</td>
                                         </tr>
                                         <tr>
-                                            <span>BEST GRADE: {item.name}</span>
+                                            <td>BEST GRADE: {item.maxGrade}</td>
                                         </tr>
                                         <tr>
-                                            <span>AVERAGE GRADE: {item.name}</span>
+                                            <td>AVERAGE GRADE: {item.avarageGrade}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -145,20 +156,20 @@ const Lesson = () => {
                                     </button>
                                 </Modal>
                             </td>
-                            <td>
-                                <Button onMouseUp={() => {
-                                    setItemId(item.id)
-                                }}
-                                        onClick={deleteLesson}
-                                >Delete</Button>
-                            </td>
-                        </tr>)
+                        <td>
+                            <Button onMouseUp={() => {
+                                setItemId(item.id)
+                            }}
+                                    onClick={deleteLesson}
+                            >Delete</Button>
+                        </td>
+                    </tr>)
                 })}
                 <tr>
                     <td>{indexCount}</td>
                     <td>{itemCount}</td>
                     <td>
-                        <input type="text" placeholder="Enter Name"
+                    <input type="text" placeholder="Enter Name"
                                onChange={e => setName(e.target.value)}/>
                     </td>
                     <td>

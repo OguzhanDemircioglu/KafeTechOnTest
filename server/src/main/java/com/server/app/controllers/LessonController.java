@@ -42,4 +42,13 @@ public class LessonController {
             return ResponseEntity.badRequest().body("İşlem geçersiz");
         }
     }
+
+    @GetMapping(value = "/getLessonsByDetail")
+    public ResponseEntity<?> getLessonsByDetail() throws Exception {
+        try {
+            return ResponseEntity.ok(service.getLessonsByDetail());
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
+        }
+    }
 }

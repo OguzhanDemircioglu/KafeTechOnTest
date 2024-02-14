@@ -1,5 +1,6 @@
 package com.server.app.services;
 
+import com.server.app.dtos.StudentDetailDto;
 import com.server.app.models.Student;
 
 import java.util.List;
@@ -9,4 +10,5 @@ public interface StudentService {
     List<Student> findAll();
     void deleteStudentById(Long id);
     Student save (Map<String,String> map);
+    List<StudentDetailDto> getStudentsByDetail();
 }

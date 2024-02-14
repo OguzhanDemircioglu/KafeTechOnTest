@@ -8,6 +8,7 @@ import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,11 +26,6 @@ public class GradeController {
         }catch (Exception e){
             throw new Exception("işlem geçersiz");
         }
-    }
-
-    @GetMapping(value = "/findAll")
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok().body(service.findAll());
     }
 
     @Transactional
@@ -60,6 +56,15 @@ public class GradeController {
             return ResponseEntity.ok(service.getAllGrades());
         }catch (CommandAcceptanceException e){
             throw new CommandAcceptanceException(e.getMessage());
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
+        }
+    }
+
+    @GetMapping(value = "/getGradesByDetail")
+    public ResponseEntity<?> getGradesByDetail() throws Exception {
+        try {
+            return ResponseEntity.ok(service.getGradesByDetail());
         }catch (Exception e){
             throw new Exception("işlem geçersiz");
         }

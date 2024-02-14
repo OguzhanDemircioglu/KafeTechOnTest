@@ -15,8 +15,8 @@ const Teacher = () => {
     const [tckn, setTckn] = useState(null);
     const [switchModal, setSwitchModal] = useState(false);
 
-    const findAll = () => {
-        fetch(BASE_URL + 'teacher/findAll')
+    const getTeachersByDetail = () => {
+        fetch(BASE_URL + 'teacher/getTeachersByDetail')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('İşlem şuan gerçekleştirilemiyor');
@@ -34,6 +34,17 @@ const Teacher = () => {
     };
 
     const insertTeacher = () => {
+
+        if(name===null || surname===null){
+            alert("İsim, Soyİsim Boş olamaz");
+            return;
+        }
+
+        if (tckn===null || !/^\d{0,11}$/.test(String(tckn))) {
+            alert("TCKN 11 Haneli Bir Sayı Olmalı");
+            return;
+        }
+
         fetch(BASE_URL + 'teacher/save', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
@@ -74,7 +85,7 @@ const Teacher = () => {
     };
 
     useEffect(() => {
-        findAll();
+        getTeachersByDetail();
     }, []);
 
     return (<>
@@ -92,7 +103,8 @@ const Teacher = () => {
             </thead>
             <tbody>
             {item?.map((item, index) => {
-                return (<tr key={index}>
+                return (
+                    <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item.id}</td>
                     <td>{item.name}</td>
@@ -126,19 +138,19 @@ const Teacher = () => {
                                     <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
                                 </tr>
                                 <tr>
-                                    <span> Name Surname: {item.name} {item.surname}</span>
+                                    <td>Name Surname: {item.name} {item.surname}</td>
                                 </tr>
                                 <tr>
-                                    <span>TCKN: {item.tckn}</span>
+                                    <td>TCKN: {item.tckn}</td>
                                 </tr>
                                 <tr>
-                                    <span>STUDENT COUNT: {item.name}</span>
+                                    <td>STUDENT COUNT: {item.studentCount}</td>
                                 </tr>
                                 <tr>
-                                    <span>BEST GRADE: {item.name}</span>
+                                    <td>BEST GRADE: {item.maxGrade}</td>
                                 </tr>
                                 <tr>
-                                    <span>AVERAGE GRADE: {item.name}</span>
+                                    <td>AVERAGE GRADE: {item.avarageGrade}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -169,7 +181,7 @@ const Teacher = () => {
                            onChange={e => setSurname(e.target.value)}/>
                 </td>
                 <td>
-                    <input type="number" placeholder="Enter TCKN"
+                    <input type="text" placeholder="Enter TCKN" maxLength={11}
                            onChange={e => setTckn(e.target.value)}/>
                 </td>
                 <td/>

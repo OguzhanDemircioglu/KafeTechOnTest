@@ -40,5 +40,20 @@ public class MyCommandLineRunner implements CommandLineRunner {
         lessonRepository.save(lesson);
         grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(100).build();
         gradeRepository.save(grade);
+
+        student = Student.builder().name("Ali").surname("Osman").tckn("124124222").build();
+        studentRepository.save(student);
+        grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(5).build();
+        gradeRepository.save(grade);
+
+/*        lesson  = Lesson.builder().countPerWeek(9).name("Math").build();
+        lessonRepository.save(lesson);
+        grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(50).build();
+        gradeRepository.save(grade);*/
+
+ /*       teacher = Teacher.builder().name("Liza").surname("Emület").tckn("2212342").build();
+        teacherRepository.save(teacher);
+        grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(55).build();
+        gradeRepository.save(grade);*/
     }
 }

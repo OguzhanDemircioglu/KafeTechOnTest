@@ -14,13 +14,13 @@
 }
 
 .card {
-  width: 150px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   border: 1px solid #04ba77;
   border-radius: 4px;
   overflow: hidden;
-  margin: 5px;
+  margin-left: 200px;
 }
 
 @media (max-width: 767px) {
@@ -49,18 +49,6 @@
   transition: all 1s;
   padding-top: 20px;
   margin-bottom: 240px;
-}
-
-#table2 {
-  text-align: center;
-}
-
-#table2 tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#table2 tr:hover {
-  background-color: #ddd;
 }
 
 #table1 {
@@ -94,4 +82,14 @@
   color: white;
 }
 
+#table2 {
+  text-align: center;
+}
 
+#table2 tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#table2 tr:hover {
+  background-color: #ddd;
+}

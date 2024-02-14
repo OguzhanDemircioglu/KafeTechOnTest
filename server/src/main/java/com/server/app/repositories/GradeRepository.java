@@ -2,9 +2,6 @@ package com.server.app.repositories;
 
 import com.server.app.dtos.GradeDto;
 import com.server.app.models.Grade;
-import com.server.app.models.Lesson;
-import com.server.app.models.Student;
-import com.server.app.models.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +11,6 @@ import java.util.List;
 
 @Repository
 public interface GradeRepository extends JpaRepository<Grade,Long> {
-
-    boolean existsGradeById(Long id);
 
     @Query("Select new com.server.app.dtos.GradeDto (g.id, g.gradeScore, g.lesson.name, g.student.name, g.student.surname,g.teacher.name, g.teacher.surname )" +
             "from Grade g " +
@@ -31,6 +26,12 @@ public interface GradeRepository extends JpaRepository<Grade,Long> {
             "from Grade g " +
             "order by g.id asc " )
     List<GradeDto> getAllGrades();
+
+    List<Grade> getGradesByTeacherId(Long id);
+
+    List<Grade> getGradesByStudentId(Long id);
+
+    List<Grade> getGradesByLessonId(Long id);
 
     void deleteGradeById(Long id);
 

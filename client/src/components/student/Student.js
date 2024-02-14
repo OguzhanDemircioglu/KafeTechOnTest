@@ -15,8 +15,8 @@ const Student = message => {
     const [itemId, setItemId] = useState(-1);
     const [switchModal, setSwitchModal] = useState(false);
 
-    const findAll = () => {
-        fetch(BASE_URL + 'student/findAll')
+    const getStudentsByDetail = () => {
+        fetch(BASE_URL + 'student/getStudentsByDetail')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('İşlem şuan gerçekleştirilemiyor');
@@ -34,6 +34,17 @@ const Student = message => {
     };
 
     const insertStudent = () => {
+
+        if(name===null || surname===null){
+            alert("İsim, Soyİsim Boş olamaz");
+            return;
+        }
+
+        if (tckn===null || !/^\d{0,11}$/.test(String(tckn))) {
+            alert("TCKN 11 Haneli Bir Sayı Olmalı");
+            return;
+        }
+
         fetch(BASE_URL + 'student/save', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
@@ -74,7 +85,7 @@ const Student = message => {
     };
 
     useEffect(() => {
-        findAll();
+        getStudentsByDetail();
     }, []);
 
     return (<>
@@ -123,22 +134,22 @@ const Student = message => {
                                     <table id="table2">
                                         <tbody>
                                         <tr>
-                                            <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
+                                            <img style={{width: "25%"}} src="/img/s1.png" alt=""/>
                                         </tr>
                                         <tr>
-                                            <span> Name Surname: {item.name} {item.surname}</span>
+                                            <td>Name Surname: {item.name} {item.surname}</td>
                                         </tr>
                                         <tr>
-                                            <span>TCKN: {item.tckn}</span>
+                                            <td>TCKN: {item.tckn}</td>
                                         </tr>
                                         <tr>
-                                            <span>STUDENT COUNT: {item.name}</span>
+                                            <td>STUDENT COUNT: {item.lessonCount}</td>
                                         </tr>
                                         <tr>
-                                            <span>BEST GRADE: {item.name}</span>
+                                            <td>BEST GRADE: {item.maxGrade}</td>
                                         </tr>
                                         <tr>
-                                            <span>AVERAGE GRADE: {item.name}</span>
+                                            <td>AVERAGE GRADE: {item.avarageGrade}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -148,14 +159,14 @@ const Student = message => {
                                     </button>
                                 </Modal>
                             </td>
-                            <td>
-                                <Button onMouseUp={() => {
-                                    setItemId(item.id)
-                                }}
-                                        onClick={deleteStudent}
-                                >Delete</Button>
-                            </td>
-                        </tr>)
+                        <td>
+                            <Button onMouseUp={() => {
+                                setItemId(item.id)
+                            }}
+                                    onClick={deleteStudent}
+                            >Delete</Button>
+                        </td>
+                    </tr>)
                 })}
                 <tr>
                     <td>{indexCount}</td>
@@ -169,7 +180,7 @@ const Student = message => {
                                onChange={e => setSurname(e.target.value)}/>
                     </td>
                     <td>
-                        <input type="number" placeholder="Enter TCKN"
+                        <input type="text" placeholder="Enter TCKN" maxLength={11}
                                onChange={e => setTckn(e.target.value)}/>
                     </td>
                     <td/>

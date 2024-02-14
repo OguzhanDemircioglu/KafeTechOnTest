@@ -42,4 +42,13 @@ public class StudentController {
             return ResponseEntity.badRequest().body("İşlem geçersiz");
         }
     }
+
+    @GetMapping(value = "/getStudentsByDetail")
+    public ResponseEntity<?> getStudentsByDetail() throws Exception {
+        try {
+            return ResponseEntity.ok(service.getStudentsByDetail());
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
+        }
+    }
 }

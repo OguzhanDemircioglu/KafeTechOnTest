@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher,Long> {
 
-    Teacher getTeacherByTckn(String tckn);
-
     Teacher getTeacherById(Long id);
 
     void deleteTeacherById(Long id);

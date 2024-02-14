@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson,Long> {
 
-    Lesson getLessonByName(String name);
-
     Lesson getLessonById(Long id);
 
     boolean existsLessonByName(String name);

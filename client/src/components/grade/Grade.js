@@ -14,14 +14,14 @@ const Grade = () => {
     const [switchModal, setSwitchModal] = useState(false);
 
     const [lesson, setLesson] = useState([]);
-    const [lessonId, setLessonId] = useState("");
+    const [lessonId, setLessonId] = useState(null);
     const [student, setStudent] = useState([]);
-    const [studentId, setStudentId] = useState("");
+    const [studentId, setStudentId] = useState(null);
     const [teacher, setTeacher] = useState([]);
-    const [teacherId, setTeacherId] = useState("");
+    const [teacherId, setTeacherId] = useState(null);
 
-    const getAllGrades = () => {
-        fetch(BASE_URL + 'grade/getAllGrades')
+    const getGradesByDetail = () => {
+        fetch(BASE_URL + 'grade/getGradesByDetail')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('İşlem şuan gerçekleştirilemiyor');
@@ -39,6 +39,27 @@ const Grade = () => {
     };
 
     const insertGrade = () => {
+
+        if (grade<0 || grade>100) {
+            alert("Not 0 ila 100 arasında olmalı");
+            return;
+        }
+
+        if (lessonId===null || lessonId==="Select Lesson") {
+            alert("Select Lesson!");
+            return;
+        }
+
+        if (studentId===null || studentId==="Select Student") {
+            alert("Select Student!");
+            return;
+        }
+
+        if (teacherId===null || teacherId==="Select Teacher") {
+            alert("Select Teacher!");
+            return;
+        }
+
         fetch(BASE_URL + 'grade/save', {
             method: 'POST',
             headers: {
@@ -145,7 +166,7 @@ const Grade = () => {
     };
 
     useEffect(() => {
-        getAllGrades();
+        getGradesByDetail();
         findAllLessons();
         findAllStudents();
         findAllTeachers();
@@ -202,22 +223,19 @@ const Grade = () => {
                                         <table id="table2">
                                             <tbody>
                                             <tr>
-                                                <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
+                                                <img style={{width: "25%"}} src="/img/g1.png" alt=""/>
                                             </tr>
                                             <tr>
-                                                <span> Name Surname: {item.name} {item.surname}</span>
+                                                <td>SUBJECT: {item.lessonName}</td>
                                             </tr>
                                             <tr>
-                                                <span>TCKN: {item.tckn}</span>
+                                                <td>PERSONAL SUCCESS: {item.personalSuccessPercentage}</td>
                                             </tr>
                                             <tr>
-                                                <span>STUDENT COUNT: {item.name}</span>
+                                                <td>CLASS SUCCESS: {item.classSuccessPercentage}</td>
                                             </tr>
                                             <tr>
-                                                <span>BEST GRADE: {item.name}</span>
-                                            </tr>
-                                            <tr>
-                                                <span>AVERAGE GRADE: {item.name}</span>
+                                                <td>NOTE: {item.note}</td>
                                             </tr>
                                             </tbody>
                                         </table>
