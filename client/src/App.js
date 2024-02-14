@@ -6,6 +6,7 @@ import Teacher from "./components/teacher/Teacher";
 import Student from "./components/student/Student";
 import Lesson from "./components/lesson/Lesson";
 import Home from "./components/home/Home";
+import Grade from "./components/grade/Grade";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/teacher"    element={<Teacher />}></Route>
                 <Route path="/student"    element={<Student />}></Route>
                 <Route path="/lesson"     element={<Lesson />}></Route>
+                <Route path="/grade"     element={<Grade />}></Route>
             </Routes>
         </div>
     );

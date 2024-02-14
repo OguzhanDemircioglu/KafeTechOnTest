@@ -17,7 +17,7 @@ public interface GradeRepository extends JpaRepository<Grade,Long> {
 
     boolean existsGradeById(Long id);
 
-    @Query("Select new com.server.app.dtos.GradeDto (g.gradeScore, g.lesson.name, g.student.name,g.teacher.name )" +
+    @Query("Select new com.server.app.dtos.GradeDto (g.id, g.gradeScore, g.lesson.name, g.student.name, g.student.surname,g.teacher.name, g.teacher.surname )" +
             "from Grade g " +
             "where g.lesson.id = :lessonId " +
             "or g.student.id = :studentId " +
@@ -26,6 +26,11 @@ public interface GradeRepository extends JpaRepository<Grade,Long> {
     List<GradeDto> getGrades(@Param("lessonId") long lessonId,
                                        @Param("studentId") long studentId,
                                        @Param("teacherId") long teacherId);
+
+    @Query("Select new com.server.app.dtos.GradeDto (g.id, g.gradeScore, g.lesson.name, g.student.name, g.student.surname,g.teacher.name, g.teacher.surname )" +
+            "from Grade g " +
+            "order by g.id asc " )
+    List<GradeDto> getAllGrades();
 
     void deleteGradeById(Long id);
 

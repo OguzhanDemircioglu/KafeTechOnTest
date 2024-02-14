@@ -28,7 +28,7 @@ public class Teacher {
     @Column(length = 20, name = "surname")
     private String surname;
 
-    @Column(length = 11, name = "tckn")
+    @Column(length = 11, name = "tckn", unique = true)
     private String tckn;
 
     @JsonIgnore

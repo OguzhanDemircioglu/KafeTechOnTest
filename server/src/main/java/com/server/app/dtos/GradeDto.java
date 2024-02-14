@@ -8,8 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GradeDto {
+    private Long id;
     private double gradeScore;
     private String lessonName;
     private String studentName;
+    private String studentSurname;
     private String teacherName;
+    private String teacherSurname;
+
 }

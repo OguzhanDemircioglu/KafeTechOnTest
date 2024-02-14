@@ -2,6 +2,7 @@ package com.server.app.controllers;
 
 import com.server.app.models.Grade;
 import com.server.app.services.GradeService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,8 @@ public class GradeController {
         return ResponseEntity.ok().body(service.findAll());
     }
 
-    @PostMapping(value = "/deleteGradeById/{id}")
+    @Transactional
+    @DeleteMapping(value = "/deleteGradeById/{id}")
     public ResponseEntity<?> deleteGradeById(@PathVariable Long id){
         try {
             service.deleteGradeById(id);
@@ -45,6 +47,17 @@ public class GradeController {
     public ResponseEntity<?> getGrades(@RequestBody Map<String,String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.getGrades(map));
+        }catch (CommandAcceptanceException e){
+            throw new CommandAcceptanceException(e.getMessage());
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
+        }
+    }
+
+    @GetMapping(value = "/getAllGrades")
+    public ResponseEntity<?> getAllGrades() throws Exception {
+        try {
+            return ResponseEntity.ok(service.getAllGrades());
         }catch (CommandAcceptanceException e){
             throw new CommandAcceptanceException(e.getMessage());
         }catch (Exception e){

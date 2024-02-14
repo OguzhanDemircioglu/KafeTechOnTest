@@ -27,12 +27,9 @@ public class GradeSrvImpl implements GradeService {
 
         if(
                 map.get("gradeNumber") == null||
-                map.get("teacherTckn") == null ||
-                map.get("studentTckn") == null ||
-                map.get("lessonName") == null ||
-                        !studentRepository.existsStudentByTckn(map.get("studentTckn")) ||
-                        !teacherRepository.existsTeacherByTckn(map.get("teacherTckn")) ||
-                        !lessonRepository.existsLessonByName(map.get("lessonName"))
+                map.get("teacherId") == null ||
+                map.get("studentId") == null ||
+                map.get("lessonId") == null
         ){
             throw new CommandAcceptanceException("Var olan Bir Nesne Tekrar Tanımlanamaz");
         }
@@ -40,9 +37,9 @@ public class GradeSrvImpl implements GradeService {
         return repository.save(
                 Grade.builder()
                         .gradeScore(Double.parseDouble(map.get("gradeNumber")))
-                        .teacher(teacherRepository.getTeacherByTckn(map.get("teacherTckn")))
-                        .student(studentRepository.getStudentByTckn(map.get("studentTckn")))
-                        .lesson(lessonRepository.getLessonByName(map.get("lessonName")))
+                        .teacher(teacherRepository.getTeacherById(Long.parseLong(map.get("teacherId"))))
+                        .student(studentRepository.getStudentById(Long.parseLong(map.get("studentId"))))
+                        .lesson(lessonRepository.getLessonById(Long.parseLong(map.get("lessonId"))))
                         .build()
         );
     }
@@ -54,9 +51,6 @@ public class GradeSrvImpl implements GradeService {
 
     @Override
     public void deleteGradeById(Long id) {
-        if(id == null){
-            throw new RuntimeException("Nesne boş");
-        }
         repository.deleteGradeById(id);
     }
 
@@ -65,5 +59,10 @@ public class GradeSrvImpl implements GradeService {
         return repository.getGrades(Long.parseLong(map.get("lessonId")),
                 Long.parseLong(map.get("studentId")),
                 Long.parseLong(map.get("teacherId")));
+    }
+
+    @Override
+    public List<GradeDto> getAllGrades() {
+        return repository.getAllGrades();
     }
 }

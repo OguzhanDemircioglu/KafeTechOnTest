@@ -23,6 +23,11 @@ const VerticalMenu = () => {
                         Lessons
                     </NavLink>
                 </Nav>
+                <Nav>
+                    <NavLink className="nav-link" style={{color: "darkslategray", fontSize: "20px"}} to={"/grade"}>
+                        Grades
+                    </NavLink>
+                </Nav>
             </Container>
         </div>
     );

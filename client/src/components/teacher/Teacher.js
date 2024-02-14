@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "../../App.css";
 import {BASE_URL} from "../../common/constant";
-import {Card, ListGroup} from "react-bootstrap";
 import {Button} from "@mui/material";
 
 const Teacher = () => {

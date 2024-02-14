@@ -15,4 +15,6 @@ public interface GradeService {
     void deleteGradeById(Long id);
 
     List<GradeDto> getGrades(Map<String,String> map);
+
+    List<GradeDto> getAllGrades();
 }
