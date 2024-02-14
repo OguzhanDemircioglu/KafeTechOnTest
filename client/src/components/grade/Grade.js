@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "../../App.css";
 import {BASE_URL} from "../../common/constant";
 import {Button} from "@mui/material";
+import Modal from 'react-modal';
 
 const Grade = () => {
 
@@ -10,6 +11,8 @@ const Grade = () => {
     const [indexCount, setIndexCount] = useState([]);
     const [itemCount, setItemCount] = useState([]);
     const [grade, setGrade] = useState(-1);
+    const [switchModal, setSwitchModal] = useState(false);
+
     const [lesson, setLesson] = useState([]);
     const [lessonId, setLessonId] = useState("");
     const [student, setStudent] = useState([]);
@@ -41,8 +44,10 @@ const Grade = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({gradeNumber:grade, teacherId:teacherId,
-                studentId:studentId, lessonId:lessonId})
+            body: JSON.stringify({
+                gradeNumber: grade, teacherId: teacherId,
+                studentId: studentId, lessonId: lessonId
+            })
         })
             .then(response => {
                 if (!response.ok) {
@@ -91,7 +96,7 @@ const Grade = () => {
             });
     };
 
-    const selectedLesson = (event) =>{
+    const selectedLesson = (event) => {
         setLessonId(event.target.value);
     }
 
@@ -111,7 +116,7 @@ const Grade = () => {
             });
     };
 
-    const selectedStudent = (event) =>{
+    const selectedStudent = (event) => {
         setStudentId(event.target.value);
     }
 
@@ -131,9 +136,13 @@ const Grade = () => {
             });
     };
 
-    const selectedTeacher = (event) =>{
+    const selectedTeacher = (event) => {
         setTeacherId(event.target.value);
     }
+
+    const toggleModal = () => {
+        setSwitchModal(!switchModal);
+    };
 
     useEffect(() => {
         getAllGrades();
@@ -144,7 +153,7 @@ const Grade = () => {
 
     return (
         <>
-            <table>
+            <table id="table1">
                 <thead>
                 <tr>
                     <th></th>
@@ -169,7 +178,54 @@ const Grade = () => {
                                 <td>{item.studentName} {item.studentSurname}</td>
                                 <td>{item.teacherName} {item.teacherSurname}</td>
                                 <td>
-                                    <Button type="button">Detail</Button>
+                                    <Button onClick={toggleModal} type="button">Detail</Button>
+                                    <Modal
+                                        isOpen={switchModal}
+                                        onRequestClose={toggleModal}
+                                        style={{
+                                            overlay: {
+                                                backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                                            }, content: {
+                                                width: '20%',
+                                                height: '40%',
+                                                margin: 'auto',
+                                                backgroundColor: 'white',
+                                                border: '1px solid #ccc',
+                                                borderRadius: '4px',
+                                                outline: 'none',
+                                                padding: '20px',
+                                                textAlign: "center"
+                                            }
+                                        }}
+                                    >
+                                        <h3>Grade Detail</h3>
+                                        <table id="table2">
+                                            <tbody>
+                                            <tr>
+                                                <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
+                                            </tr>
+                                            <tr>
+                                                <span> Name Surname: {item.name} {item.surname}</span>
+                                            </tr>
+                                            <tr>
+                                                <span>TCKN: {item.tckn}</span>
+                                            </tr>
+                                            <tr>
+                                                <span>STUDENT COUNT: {item.name}</span>
+                                            </tr>
+                                            <tr>
+                                                <span>BEST GRADE: {item.name}</span>
+                                            </tr>
+                                            <tr>
+                                                <span>AVERAGE GRADE: {item.name}</span>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <br/>
+                                        <button
+                                            onClick={toggleModal}>Close Modal
+                                        </button>
+                                    </Modal>
                                 </td>
                                 <td>
                                     <Button onMouseUp={() => {
@@ -189,7 +245,6 @@ const Grade = () => {
                         <input type="number" placeholder="Enter Grade Score"
                                onChange={e => setGrade(Number(e.target.value))}/>
                     </td>
-
                     <td>
                         <select value={lessonId} onChange={selectedLesson}>
                             <option>Select Lesson</option>
@@ -198,7 +253,6 @@ const Grade = () => {
                             ))}
                         </select>
                     </td>
-
                     <td>
                         <select value={studentId} onChange={selectedStudent}>
                             <option>Select Student</option>
@@ -220,7 +274,6 @@ const Grade = () => {
                         <Button type={"submit"} onClick={insertGrade}>Add</Button>
                     </td>
                 </tr>
-
                 </tbody>
             </table>
         </>

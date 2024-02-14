@@ -1,5 +1,5 @@
 import React from 'react';
-import "./VerticalMenu.css"
+import "../../App.css";
 import {Nav} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {Container} from "@mui/material";

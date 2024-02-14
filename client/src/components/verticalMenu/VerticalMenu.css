@@ -1,9 +1,0 @@
-.side-nav {
-    width: 180px;
-    position: absolute;
-    background-color: lightgray;
-    height: 95vh;
-    transition: all 1s;
-    padding-top: 20px;
-    margin-bottom: 240px;
-}

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "../../App.css";
 import {BASE_URL} from "../../common/constant";
 import {Button} from "@mui/material";
+import Modal from "react-modal";
 
 const Student = message => {
 
@@ -12,6 +13,7 @@ const Student = message => {
     const [surname, setSurname] = useState(null);
     const [tckn, setTckn] = useState(null);
     const [itemId, setItemId] = useState(-1);
+    const [switchModal, setSwitchModal] = useState(false);
 
     const findAll = () => {
         fetch(BASE_URL + 'student/findAll')
@@ -23,21 +25,19 @@ const Student = message => {
             })
             .then(data => {
                 setItem(data);
-                setIndexCount(data.length+1);
-                setItemCount(data[data.length-1].id+1);
+                setIndexCount(data.length + 1);
+                setItemCount(data[data.length - 1].id + 1);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
     };
 
-    const insertStudent = () =>{
+    const insertStudent = () => {
         fetch(BASE_URL + 'student/save', {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, surname, tckn })
+            }, body: JSON.stringify({name, surname, tckn})
         })
             .then(response => {
                 if (!response.ok) {
@@ -45,16 +45,16 @@ const Student = message => {
                 }
                 return response.json();
             })
-            .then(data => {})
+            .then(data => {
+            })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
     }
 
-    function deleteStudent () {
+    function deleteStudent() {
         fetch(BASE_URL + `student/deleteStudentById/${itemId}`, {
-            method: 'DELETE',
-            headers: {
+            method: 'DELETE', headers: {
                 'Content-Type': 'application/json'
             }
         })
@@ -69,13 +69,16 @@ const Student = message => {
             });
     }
 
+    const toggleModal = () => {
+        setSwitchModal(!switchModal);
+    };
+
     useEffect(() => {
         findAll();
     }, []);
 
-    return (
-        <>
-            <table>
+    return (<>
+            <table id="table1">
                 <thead>
                 <tr>
                     <th></th>
@@ -88,27 +91,72 @@ const Student = message => {
                 </tr>
                 </thead>
                 <tbody>
-                {
-                    item?.map((item, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                                <td>{item.surname}</td>
-                                <td>{item.tckn}</td>
-                                <td>
-                                    <Button type="button">Detail</Button>
-                                </td>
-                                <td>
-                                    <Button onMouseUp={()=>{setItemId(item.id)}}
-                                            onClick={deleteStudent}
-                                            >Delete</Button>
-                                </td>
-                            </tr>
-                        )
-                    })
-                }
+                {item?.map((item, index) => {
+                    return (<tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.id}</td>
+                            <td>{item.name}</td>
+                            <td>{item.surname}</td>
+                            <td>{item.tckn}</td>
+                            <td>
+                                <Button onClick={toggleModal} type="button">Detail</Button>
+                                <Modal
+                                    isOpen={switchModal}
+                                    onRequestClose={toggleModal}
+                                    style={{
+                                        overlay: {
+                                            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                                        }, content: {
+                                            width: '20%',
+                                            height: '40%',
+                                            margin: 'auto',
+                                            backgroundColor: 'white',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            outline: 'none',
+                                            padding: '20px',
+                                            textAlign: "center"
+                                        }
+                                    }}
+                                >
+                                    <h3>Student Detail</h3>
+                                    <table id="table2">
+                                        <tbody>
+                                        <tr>
+                                            <img style={{width: "25%"}} src="/img/t1.png" alt=""/>
+                                        </tr>
+                                        <tr>
+                                            <span> Name Surname: {item.name} {item.surname}</span>
+                                        </tr>
+                                        <tr>
+                                            <span>TCKN: {item.tckn}</span>
+                                        </tr>
+                                        <tr>
+                                            <span>STUDENT COUNT: {item.name}</span>
+                                        </tr>
+                                        <tr>
+                                            <span>BEST GRADE: {item.name}</span>
+                                        </tr>
+                                        <tr>
+                                            <span>AVERAGE GRADE: {item.name}</span>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <br/>
+                                    <button
+                                        onClick={toggleModal}>Close Modal
+                                    </button>
+                                </Modal>
+                            </td>
+                            <td>
+                                <Button onMouseUp={() => {
+                                    setItemId(item.id)
+                                }}
+                                        onClick={deleteStudent}
+                                >Delete</Button>
+                            </td>
+                        </tr>)
+                })}
                 <tr>
                     <td>{indexCount}</td>
                     <td>{itemCount}</td>
@@ -129,11 +177,9 @@ const Student = message => {
                         <Button type={"submit"} onClick={insertStudent}>Add</Button>
                     </td>
                 </tr>
-
                 </tbody>
             </table>
-        </>
-    );
+        </>);
 };
 
 export default Student;
