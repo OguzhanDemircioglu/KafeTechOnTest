@@ -44,6 +44,11 @@ const Lesson = () => {
             return;
         }
 
+        if(item.map(t=> t.name).filter(i=> i===name)){
+            alert("Ders Zaten Kayıtlı");
+            return;
+        }
+
         fetch(BASE_URL + 'lesson/save', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'

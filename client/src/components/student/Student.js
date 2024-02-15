@@ -45,6 +45,11 @@ const Student = message => {
             return;
         }
 
+        if(item.map(t=> t.tckn).filter(i=> i===tckn)){
+            alert("Aynı TCKN ile Kayıt Yapılamaz");
+            return;
+        }
+
         fetch(BASE_URL + 'student/save', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
