@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "../../App.css";
 import {BASE_URL} from "../../common/constant";
-import {Button} from "@mui/material";
+import {Button, Input} from "@mui/material";
 import Modal from "react-modal";
 
 const Lesson = () => {
@@ -13,6 +13,7 @@ const Lesson = () => {
     const [countPerWeek, setCountPerWeek] = useState(0);
     const [itemId, setItemId] = useState(-1);
     const [switchModal, setSwitchModal] = useState(false);
+    const [searchKey, setSearchKey] = useState(null);
 
     const getLessonsByDetail = () => {
         fetch(BASE_URL + 'lesson/getLessonsByDetail')
@@ -93,6 +94,8 @@ const Lesson = () => {
     }, []);
 
     return (<>
+        <Input type="text" placeholder="SearchByName..." className="card"
+               onChange={(e) => setSearchKey(e.target.value.toLowerCase())}/>
             <table id="table1">
                 <thead>
                 <tr>
@@ -105,7 +108,7 @@ const Lesson = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {item?.map((item, index) => {
+                {item?.filter(i => !searchKey || i.name.includes(searchKey)).map((item, index) => {
                     return (<tr key={index}>
                             <td>{index + 1}</td>
                             <td>{item.id}</td>
