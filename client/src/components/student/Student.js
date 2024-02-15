@@ -61,6 +61,8 @@ const Student = message => {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+        window.location.reload();
     }
 
     function deleteStudent() {
@@ -78,6 +80,8 @@ const Student = message => {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+        window.location.reload();
     }
 
     const toggleModal = () => {

@@ -25,7 +25,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
     public void run(String... args) {
         Student student = Student.builder().name("Oğuzhan").surname("Demircioğlu").tckn("61135361398").build();
         studentRepository.save(student);
-        Teacher teacher = Teacher.builder().name("Şeyda").surname("Kuşçu").tckn("11111111").build();
+        Teacher teacher = Teacher.builder().name("Şeyda").surname("Kuşçu").tckn("11111111111").build();
         teacherRepository.save(teacher);
         Lesson lesson   = Lesson.builder().countPerWeek(10).name("İngilizce").build();
         lessonRepository.save(lesson);
@@ -34,14 +34,14 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
         student = Student.builder().name("Ezgi").surname("Ezgiiii").tckn("00000000000").build();
         studentRepository.save(student);
-        teacher = Teacher.builder().name("İbrahim").surname("Mahariq").tckn("222222222").build();
+        teacher = Teacher.builder().name("İbrahim").surname("Mahariq").tckn("22222222222").build();
         teacherRepository.save(teacher);
         lesson  = Lesson.builder().countPerWeek(4).name("Fizik").build();
         lessonRepository.save(lesson);
         grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(100).build();
         gradeRepository.save(grade);
 
-        student = Student.builder().name("Ali").surname("Osman").tckn("124124222").build();
+        student = Student.builder().name("Ali").surname("Osman").tckn("12412422222").build();
         studentRepository.save(student);
         grade   = Grade.builder().teacher(teacher).student(student).lesson(lesson).gradeScore(5).build();
         gradeRepository.save(grade);

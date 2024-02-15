@@ -81,6 +81,8 @@ const Grade = () => {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+        window.location.reload();
     }
 
     function deleteGrade() {
@@ -99,6 +101,8 @@ const Grade = () => {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+        window.location.reload();
     }
 
     const findAllLessons = () => {
@@ -229,10 +233,10 @@ const Grade = () => {
                                                 <td>SUBJECT: {item.lessonName}</td>
                                             </tr>
                                             <tr>
-                                                <td>PERSONAL SUCCESS: {item.personalSuccessPercentage}</td>
+                                                <td>PERSONAL SCORE: {item.personalSuccessPercentage} /100</td>
                                             </tr>
                                             <tr>
-                                                <td>CLASS SUCCESS: {item.classSuccessPercentage}</td>
+                                                <td>CLASS SCORE: {item.classSuccessPercentage} /100</td>
                                             </tr>
                                             <tr>
                                                 <td>NOTE: {item.note}</td>
